@@ -192,6 +192,11 @@ export default function AdminPage() {
     if (error) setStatus(error.message);
   }
 
+  async function signOut() {
+    await supabase.auth.signOut();
+    setUserId(null);
+  }
+
   async function signUp() {
     setStatus(null);
     const { error } = await supabase.auth.signUp({ email, password });
@@ -373,7 +378,27 @@ export default function AdminPage() {
     <div className="min-h-screen bg-[#bfe47a] text-slate-900">
       <section className="mx-auto max-w-6xl px-4 py-10">
         <div className="rounded-3xl bg-white p-6 shadow-xl">
-          <h1 className="text-2xl font-extrabold text-[#1d1d59]">Admin Panel</h1>
+          <div className="flex items-center justify-between">
+            <div>
+              <h1 className="text-2xl font-extrabold text-[#1d1d59]">Admin Panel</h1>
+              <p className="text-xs text-[#1d1d59]/60">Manage your shop settings and products.</p>
+            </div>
+            <div className="flex gap-2">
+              <a href="/" className="rounded-full bg-white px-4 py-2 text-xs font-semibold text-[#1d1d59] shadow">
+                Home
+              </a>
+              <a href="/order" className="rounded-full bg-white px-4 py-2 text-xs font-semibold text-[#1d1d59] shadow">
+                Orders
+              </a>
+              <button
+                type="button"
+                onClick={signOut}
+                className="rounded-full bg-[#1d1d59] px-4 py-2 text-xs font-semibold text-white"
+              >
+                Sign Out
+              </button>
+            </div>
+          </div>
           <p className="mt-2 text-sm text-[#1d1d59]/70">
             Manage branding, menu, services, and pricing for your domain.
           </p>
